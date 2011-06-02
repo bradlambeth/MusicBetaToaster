@@ -7,17 +7,17 @@
 
   function FindMusicBetaTab(callback) {
     chrome.windows.getAll({populate: true}, function(windows) {
+        var pattern = 'https?\:\/\/music\.google\.com\/music\/listen.*';
         for (var window = 0; window < windows.length; window++) {
           for (var i = 0; i < windows[window].tabs.length; i++) {
-            if (windows[window].tabs[i].url.
-                indexOf('http://music.google.com/music/listen') == 0) {
+            if (windows[window].tabs[i].url.match(pattern)) {
               callback(windows[window].tabs[i].id)
               return;
             }
           }
         }
         callback(null);
-      });  
+      });
   }
 
   // Get the play state from a MusicBeta tab and call UpdateIcon with it.
